@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """
 Система запросов для базы данных колонистов Марса
 Использование:
@@ -20,25 +17,15 @@
 import sys
 import os
 from sqlalchemy import or_, func
+from data import db_session
+from data.users import User
+from data.jobs import Jobs
+from data.departments import Department
 
 # Настройка путей для импорта модулей
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(project_root)
 
-try:
-    from data import db_session
-    from data.users import User
-    from data.jobs import Jobs
-    from data.departments import Department
-except ImportError as e:
-    print(f"Ошибка импорта модулей: {e}")
-    print("Убедитесь, что структура проекта соответствует ожидаемой:")
-    print("data/")
-    print("├── db_session.py")
-    print("├── users.py")
-    print("├── jobs.py")
-    print("└── departments.py")
-    sys.exit(1)
 
 # === ЗАДАЧА 1: Все колонисты в модуле 1 ===
 def query_module1_colonists(session):
@@ -127,22 +114,18 @@ def query_largest_teams(session):
     if not all_jobs:
         print("Работ не найдено")
         return
-    
-    # Вычисляем размер команды для каждой работы
+
     jobs_with_team_size = []
     for job in all_jobs:
         team_size = 0
         if job.collaborators:
-            # Учитываем формат хранения: "2,3" или "[2,3]" или "2 3"
             collaborators_str = job.collaborators.strip('[] ')
             if collaborators_str:
                 team_size = len([c.strip() for c in collaborators_str.split(',') if c.strip()])
         jobs_with_team_size.append((job, team_size))
-    
-    # Находим максимальный размер команды
+
     max_team_size = max(size for _, size in jobs_with_team_size)
-    
-    # Находим все работы с максимальным размером команды
+
     largest_jobs = [job for job, size in jobs_with_team_size if size == max_team_size]
     
     print(f"Работы с максимальным размером команды ({max_team_size} участников):")
@@ -175,7 +158,6 @@ def query_update_addresses(session):
         print("Изменение отменено")
         return
     
-    # Изменяем адреса
     for colonist in young_colonists:
         old_address = colonist.address
         colonist.address = "module_3"
@@ -200,11 +182,9 @@ def query_department_hours(session):
         return
     
     print(f"Найден департамент: {geo_dept.title} (ID: {geo_dept.id})")
-    
-    # Получаем ID участников департамента
+
     member_ids = []
     if geo_dept.members:
-        # Очищаем строку от лишних символов и разделяем
         members_str = geo_dept.members.strip('[] ')
         if members_str:
             member_ids = [int(id_str.strip()) for id_str in members_str.split(',') if id_str.strip().isdigit()]
@@ -215,10 +195,8 @@ def query_department_hours(session):
     
     print(f"Участники департамента (ID): {', '.join(map(str, member_ids))}")
     
-    # Находим сотрудников с >25 часов работы
     qualified_members = []
     for member_id in member_ids:
-        # Считаем суммарное время выполненных работ
         total_hours = session.query(func.sum(Jobs.work_size)).filter(
             Jobs.team_leader == member_id,
             Jobs.is_finished == True
@@ -251,7 +229,6 @@ def main():
         '8': ('Сотрудники геол. департамента с >25 часов работы', query_department_hours),
     }
     
-    # Парсинг аргументов
     if len(sys.argv) < 2:
         print(__doc__)
         print("\nДоступные задачи:")
@@ -272,27 +249,15 @@ def main():
     print(f"ЗАДАЧА {task_number}: {task_name}")
     print(f"База данных: {db_file}")
     print(f"{'='*60}\n")
-    
-    try:
-        # Инициализация сессии
-        db_session.global_init(db_file)
-        session = db_session.create_session()
+    db_session.global_init(db_file)
+    session = db_session.create_session()
         
-        # Выполнение задачи
-        task_function(session)
+    task_function(session)
         
-        # Закрытие сессии
-        session.close()
-        print(f"\n{'='*60}")
-        print(f"Задача {task_number} выполнена успешно")
-        print(f"{'='*60}")
+    session.close()
+    print(f"\n{'='*60}")
+    print(f"Задача {task_number} выполнена успешно")
+    print(f"{'='*60}")
         
-    except Exception as e:
-        print(f"\n{'!'*60}")
-        print(f"ОШИБКА при выполнении задачи {task_number}:")
-        print(f"{str(e)}")
-        print(f"{'!'*60}")
-        sys.exit(1)
-
 if __name__ == "__main__":
     main()

@@ -1,31 +1,211 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <meta charset="utf-8">
-    <title>Создание департамента</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новый департамент - Марсианская миссия</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #e9c46a, #f4a261);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .form-section {
+            padding: 30px;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #f39c12;
+            font-size: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+            font-size: 1.05rem;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="number"] {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #f39c12;
+            box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
+        }
+        
+        .error {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            padding-left: 5px;
+        }
+        
+        .field-hint {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-top: 4px;
+            font-style: italic;
+        }
+        
+        .submit-container {
+            text-align: center;
+            margin-top: 25px;
+        }
+        
+        button[type="submit"] {
+            background: linear-gradient(90deg, #f39c12, #d35400);
+            color: white;
+            border: none;
+            padding: 14px 45px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.6);
+        }
+        
+        .message {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .error-message {
+            background-color: #ffebee;
+            border: 1px solid #ffcdd2;
+            color: #c62828;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+    </style>
 </head>
 <body>
-    <h1>Создание нового департамента</h1>
-    <form method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.title.label }}<br>
-            {{ form.title(size=50) }}
-        </p>
-        <p>
-            {{ form.chief.label }}<br>
-            {{ form.chief() }}
-        </p>
-        <p>
-            {{ form.members.label }}<br>
-            {{ form.members(size=50) }}
-        </p>
-        <p>
-            {{ form.email.label }}<br>
-            {{ form.email(size=50) }}
-        </p>
-        <p>{{ form.submit() }}</p>
-        <p><a href="/">Вернуться на главную</a></p>
-    </form>
+    <div class="container">
+        <header>
+            <h1>Создание департамента</h1>
+            <p class="subtitle">Организация специалистов для эффективной работы</p>
+        </header>
+        
+        <div class="form-section">
+            <form method="POST" novalidate>
+                {{ form.hidden_tag() }}
+                
+                <div class="form-group">
+                    <label for="title">{{ form.title.label.text }}*</label>
+                    {{ form.title(class="form-control", placeholder="Название департамента") }}
+                    {% for error in form.title.errors %}
+                    <span class="error">{{ error }}</span>
+                    {% endfor %}
+                    <div class="field-hint">Например: Geological Exploration, Life Support Systems</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="chief">{{ form.chief.label.text }}*</label>
+                    {{ form.chief(class="form-control", placeholder="ID начальника департамента") }}
+                    {% for error in form.chief.errors %}
+                    <span class="error">{{ error }}</span>
+                    {% endfor %}
+                    <div class="field-hint">Укажите ID пользователя из базы данных</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="members">{{ form.members.label.text }}</label>
+                    {{ form.members(class="form-control", placeholder="ID членов через запятую: 1, 3, 5") }}
+                    {% for error in form.members.errors %}
+                    <span class="error">{{ error }}</span>
+                    {% endfor %}
+                    <div class="field-hint">Укажите ID членов департамента через запятую. Пример: 1, 3, 5</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">{{ form.email.label.text }}</label>
+                    {{ form.email(class="form-control", placeholder="Email департамента") }}
+                    {% for error in form.email.errors %}
+                    <span class="error">{{ error }}</span>
+                    {% endfor %}
+                    <div class="field-hint">Официальный email для коммуникации департамента</div>
+                </div>
+                
+                <div class="submit-container">
+                    {{ form.submit(class="btn-submit") }}
+                </div>
+            </form>
+        </div>
+        
+        <footer>
+            <p>Система управления департаментами марсианской базы</p>
+            <p style="margin-top: 5px; font-size: 0.85rem; color: #555;">Эффективная организация - ключ к успешной колонизации</p>
+        </footer>
+    </div>
 </body>
 </html>

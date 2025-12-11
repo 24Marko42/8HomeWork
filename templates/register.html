@@ -1,54 +1,276 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <meta charset="utf-8">
-    <title>Регистрация</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - Марсианская миссия</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #e63946, #d90429);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .form-section {
+            padding: 30px;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #3498db;
+            font-size: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+            font-size: 1.05rem;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"] {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .error {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            padding-left: 5px;
+        }
+        
+        .field-hint {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-top: 4px;
+            font-style: italic;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .submit-container {
+            text-align: center;
+            margin-top: 25px;
+        }
+        
+        button[type="submit"] {
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 14px 45px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.6);
+        }
+        
+        .message {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .error-message {
+            background-color: #ffebee;
+            border: 1px solid #ffcdd2;
+            color: #c62828;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .container {
+                margin: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Регистрация нового колониста</h1>
-    {% if message %}
-    <div style="color: red">{{ message }}</div>
-    {% endif %}
-    <form method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.surname.label }}<br>
-            {{ form.surname(size=32) }}
-        </p>
-        <p>
-            {{ form.name.label }}<br>
-            {{ form.name(size=32) }}
-        </p>
-        <p>
-            {{ form.age.label }}<br>
-            {{ form.age() }}
-        </p>
-        <p>
-            {{ form.position.label }}<br>
-            {{ form.position(size=32) }}
-        </p>
-        <p>
-            {{ form.speciality.label }}<br>
-            {{ form.speciality(size=32) }}
-        </p>
-        <p>
-            {{ form.address.label }}<br>
-            {{ form.address(size=32) }}
-        </p>
-        <p>
-            {{ form.email.label }}<br>
-            {{ form.email(size=32) }}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}
-        </p>
-        <p>
-            {{ form.password_again.label }}<br>
-            {{ form.password_again(size=32) }}
-        </p>
-        <p>{{ form.submit() }}</p>
-        <p><a href="/">Вернуться на главную</a></p>
-    </form>
+    <div class="container">
+        <header>
+            <h1>Регистрация участника миссии</h1>
+            <p class="subtitle">Присоединяйтесь к колонизации Марса</p>
+        </header>
+        
+        <div class="form-section">
+            {% if message %}
+            <div class="message error-message">
+                {{ message }}
+            </div>
+            {% endif %}
+            
+            <form method="POST" novalidate>
+                {{ form.hidden_tag() }}
+                
+                <h2 class="section-title">Персональные данные</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="surname">{{ form.surname.label.text }}</label>
+                        {{ form.surname(class="form-control", placeholder="Введите фамилию") }}
+                        {% for error in form.surname.errors %}
+                        <span class="error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label for="name">{{ form.name.label.text }}*</label>
+                        {{ form.name(class="form-control", placeholder="Введите имя") }}
+                        {% for error in form.name.errors %}
+                        <span class="error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="age">{{ form.age.label.text }}*</label>
+                        {{ form.age(class="form-control", placeholder="Укажите возраст") }}
+                        {% for error in form.age.errors %}
+                        <span class="error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label for="position">{{ form.position.label.text }}</label>
+                        {{ form.position(class="form-control", placeholder="Например: engineer") }}
+                        {% for error in form.position.errors %}
+                        <span class="error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="speciality">{{ form.speciality.label.text }}</label>
+                    {{ form.speciality(class="form-control", placeholder="Специализация, например: research engineer") }}
+                    {% for error in form.speciality.errors %}
+                    <span class="error">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                
+                <h2 class="section-title" style="margin-top: 30px;">Контактная информация</h2>
+                <div class="form-group">
+                    <label for="address">{{ form.address.label.text }}</label>
+                    {{ form.address(class="form-control", placeholder="Адрес проживания, например: module_1") }}
+                    {% for error in form.address.errors %}
+                    <span class="error">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">{{ form.email.label.text }}*</label>
+                    {{ form.email(class="form-control", placeholder="Ваша электронная почта") }}
+                    {% for error in form.email.errors %}
+                    <span class="error">{{ error }}</span>
+                    {% endfor %}
+                    <div class="field-hint">Используется для входа в систему и оповещений</div>
+                </div>
+                
+                <h2 class="section-title" style="margin-top: 30px;">Учетные данные</h2>
+                <div class="form-group">
+                    <label for="password">{{ form.password.label.text }}*</label>
+                    {{ form.password(class="form-control", placeholder="Придумайте надежный пароль") }}
+                    {% for error in form.password.errors %}
+                    <span class="error">{{ error }}</span>
+                    {% endfor %}
+                    <div class="field-hint">Минимум 8 символов, включая буквы и цифры</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password_again">{{ form.password_again.label.text }}*</label>
+                    {{ form.password_again(class="form-control", placeholder="Повторите пароль") }}
+                    {% for error in form.password_again.errors %}
+                    <span class="error">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                
+                <div class="submit-container">
+                    {{ form.submit(class="btn-submit") }}
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
