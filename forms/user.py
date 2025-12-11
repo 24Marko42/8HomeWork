@@ -1,16 +1,15 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, IntegerField, SubmitField, TextAreaField
-from wtforms.validators import DataRequired, Email, EqualTo, NumberRange
+from wtforms import StringField, PasswordField, IntegerField, SubmitField
+from wtforms.validators import DataRequired, Email, EqualTo
 
 class RegisterForm(FlaskForm):
     surname = StringField('Фамилия')
     name = StringField('Имя', validators=[DataRequired()])
-    age = IntegerField('Возраст', validators=[DataRequired(), NumberRange(min=0, max=120)])
+    age = IntegerField('Возраст', validators=[DataRequired()])
     position = StringField('Должность')
     speciality = StringField('Профессия')
     address = StringField('Адрес')
-    email = StringField('Почта', validators=[DataRequired(), Email()])
-    password = PasswordField('Пароль', validators=[DataRequired(), EqualTo('password_again', message='Пароли не совпадают')])
-    password_again = PasswordField('Повторите пароль', validators=[DataRequired()])
-    about = TextAreaField('О себе')
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Пароль', validators=[DataRequired()])
+    password_again = PasswordField('Повторите пароль', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Зарегистрироваться')

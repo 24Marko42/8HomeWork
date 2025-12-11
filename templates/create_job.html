@@ -1,54 +1,35 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>{{ title }}</title>
+    <title>Создание работы</title>
 </head>
 <body>
-
-<h1 align="center">{{ title }}</h1>
-<hr>
-
-<fieldset style="padding: 10px; border: 2px solid black;">
-    <legend><b>Форма создания задачи</b></legend>
-
+    <h1>Создание новой работы</h1>
     <form method="post">
         {{ form.hidden_tag() }}
-
-        <table cellspacing="6">
-            <tr>
-                <td><b>{{ form.team_leader.label }}</b></td>
-                <td>{{ form.team_leader(size=40) }}</td>
-            </tr>
-
-            <tr>
-                <td><b>{{ form.job.label }}</b></td>
-                <td>{{ form.job(size=60) }}</td>
-            </tr>
-
-            <tr>
-                <td><b>{{ form.work_size.label }}</b></td>
-                <td>{{ form.work_size(size=20) }}</td>
-            </tr>
-
-            <tr>
-                <td><b>{{ form.collaborators.label }}</b></td>
-                <td>{{ form.collaborators(size=60) }}</td>
-            </tr>
-
-            <tr>
-                <td><b>{{ form.is_finished.label }}</b></td>
-                <td>{{ form.is_finished() }}</td>
-            </tr>
-        </table>
-
-        <br>
-        {{ form.submit() }}
+        <p>
+            {{ form.team_leader.label }}<br>
+            {{ form.team_leader() }}
+        </p>
+        <p>
+            {{ form.job.label }}<br>
+            {{ form.job(size=50) }}
+        </p>
+        <p>
+            {{ form.work_size.label }}<br>
+            {{ form.work_size() }}
+        </p>
+        <p>
+            {{ form.collaborators.label }}<br>
+            {{ form.collaborators(size=50) }}
+        </p>
+        <p>
+            {{ form.is_finished.label }}<br>
+            {{ form.is_finished() }}
+        </p>
+        <p>{{ form.submit() }}</p>
+        <p><a href="/">Вернуться на главную</a></p>
     </form>
-</fieldset>
-
-<hr>
-<p align="center"><i>Страница создана студентом</i></p>
-
 </body>
 </html>

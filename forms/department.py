@@ -1,10 +1,10 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SubmitField
-from wtforms.validators import DataRequired, Optional, Email
+from wtforms.validators import DataRequired
 
 class DepartmentForm(FlaskForm):
     title = StringField('Название', validators=[DataRequired()])
-    chief = IntegerField('ID начальника', validators=[Optional()])
-    members = StringField('Члены (ids через запятую)', validators=[Optional()])
-    email = StringField('E-mail', validators=[Optional(), Email()])
-    submit = SubmitField('Создать отдел')
+    chief = IntegerField('ID начальника', validators=[DataRequired()])
+    members = StringField('Члены (через запятую)')
+    email = StringField('Email')
+    submit = SubmitField('Добавить')

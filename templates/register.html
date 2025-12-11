@@ -1,58 +1,54 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>{{ title }}</title>
+    <title>Регистрация</title>
 </head>
 <body>
-
-<h1 align="center">{{ title }}</h1>
-<hr>
-
-{% if message %}
-<p style="color: red;"><b>{{ message }}</b></p>
-{% endif %}
-
-<fieldset style="padding: 10px; border: 2px solid black;">
-    <legend><b>Регистрация пользователя</b></legend>
-
+    <h1>Регистрация нового колониста</h1>
+    {% if message %}
+    <div style="color: red">{{ message }}</div>
+    {% endif %}
     <form method="post">
         {{ form.hidden_tag() }}
-
-        <table cellspacing="6">
-            <tr>
-                <td><b>{{ form.name.label }}</b></td>
-                <td>{{ form.name(size=40) }}</td>
-            </tr>
-
-            <tr>
-                <td><b>{{ form.email.label }}</b></td>
-                <td>{{ form.email(size=40) }}</td>
-            </tr>
-
-            <tr>
-                <td><b>{{ form.about.label }}</b></td>
-                <td>{{ form.about(size=60) }}</td>
-            </tr>
-
-            <tr>
-                <td><b>{{ form.password.label }}</b></td>
-                <td>{{ form.password(size=40) }}</td>
-            </tr>
-
-            <tr>
-                <td><b>{{ form.password_again.label }}</b></td>
-                <td>{{ form.password_again(size=40) }}</td>
-            </tr>
-        </table>
-
-        <br>
-        {{ form.submit() }}
+        <p>
+            {{ form.surname.label }}<br>
+            {{ form.surname(size=32) }}
+        </p>
+        <p>
+            {{ form.name.label }}<br>
+            {{ form.name(size=32) }}
+        </p>
+        <p>
+            {{ form.age.label }}<br>
+            {{ form.age() }}
+        </p>
+        <p>
+            {{ form.position.label }}<br>
+            {{ form.position(size=32) }}
+        </p>
+        <p>
+            {{ form.speciality.label }}<br>
+            {{ form.speciality(size=32) }}
+        </p>
+        <p>
+            {{ form.address.label }}<br>
+            {{ form.address(size=32) }}
+        </p>
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(size=32) }}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}
+        </p>
+        <p>
+            {{ form.password_again.label }}<br>
+            {{ form.password_again(size=32) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+        <p><a href="/">Вернуться на главную</a></p>
     </form>
-</fieldset>
-
-<hr>
-<p align="center"><i>Страница создана студентом</i></p>
-
 </body>
 </html>

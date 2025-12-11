@@ -1,93 +1,50 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Главная</title>
+    <title>Работы на Марсе</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-
-<h1 align="center"><b>Список задач</b></h1>
-
-<!-- КНОПКИ НАВИГАЦИИ -->
-<div align="center">
-    <table cellpadding="5">
+    <h1>Работы на Марсе</h1>
+    <table>
         <tr>
-            <td>
-                <form action="/create_job">
-                    <button type="submit">Создать задачу</button>
-                </form>
-            </td>
-            <td>
-                <form action="/create_department">
-                    <button type="submit">Создать департамент</button>
-                </form>
-            </td>
-            <td>
-                <form action="/register">
-                    <button type="submit">Регистрация</button>
-                </form>
-            </td>
+            <th>ID</th>
+            <th>Название работы</th>
+            <th>Ответственный</th>
+            <th>Продолжительность</th>
+            <th>Команда</th>
+            <th>Статус</th>
         </tr>
+        {% for job in jobs %}
+        <tr>
+            <td>{{ job.id }}</td>
+            <td>{{ job.job }}</td>
+            <td>{{ job.leader.surname }} {{ job.leader.name }}</td>
+            <td>{{ job.work_size }} часов</td>
+            <td>{{ job.collaborators }}</td>
+            <td>{% if job.is_finished %}Завершена{% else %}Не завершена{% endif %}</td>
+        </tr>
+        {% endfor %}
     </table>
-</div>
-
-<hr>
-
-<!-- ТАБЛИЦА ЗАДАЧ -->
-<table border="1" cellpadding="6" align="center">
-    <tr>
-        <th>ID</th>
-        <th>Описание</th>
-        <th>Объём</th>
-        <th>Тимлид</th>
-        <th>Коллабораторы</th>
-        <th>Статус</th>
-    </tr>
-
-    {% for job in jobs %}
-    <tr>
-        <td>{{ job.id }}</td>
-        <td>{{ job.job }}</td>
-        <td>{{ job.work_size }} ч.</td>
-        <td>{{ job.team_leader }}</td>
-        <td>{{ job.collaborators }}</td>
-        <td>
-            {% if job.is_finished %}
-                <b>Готово</b>
-            {% else %}
-                В процессе
-            {% endif %}
-        </td>
-    </tr>
-    {% endfor %}
-</table>
-
-
-<h1 align="center"><b>Департаменты</b></h1>
-
-<!-- ТАБЛИЦА ДЕПАРТАМЕНТОВ -->
-<table border="1" cellpadding="6" align="center">
-    <tr>
-        <th>ID</th>
-        <th>Название</th>
-        <th>Начальник</th>
-        <th>Email</th>
-        <th>Сотрудники</th>
-    </tr>
-
-    {% for dep in deps %}
-    <tr>
-        <td>{{ dep.id }}</td>
-        <td>{{ dep.title }}</td>
-        <td>{{ dep.chief }}</td>
-        <td>{{ dep.email }}</td>
-        <td>{{ dep.members }}</td>
-    </tr>
-    {% endfor %}
-</table>
-
-<hr>
-<p align="center"><i>Сайт создан студентом</i></p>
-
+    <div>
+        <p><a href="/register">Регистрация нового колониста</a></p>
+        <p><a href="/create_job">Создать новую работу</a></p>
+        <p><a href="/create_department">Создать новый департамент</a></p>
+    </div>
 </body>
 </html>

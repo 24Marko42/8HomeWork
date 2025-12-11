@@ -1,11 +1,11 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, BooleanField, SubmitField
-from wtforms.validators import DataRequired, Optional
+from wtforms.validators import DataRequired
 
 class JobForm(FlaskForm):
-    team_leader = IntegerField('ID тимлида', validators=[DataRequired()])
+    team_leader = IntegerField('ID руководителя', validators=[DataRequired()])
     job = StringField('Описание работы', validators=[DataRequired()])
-    work_size = IntegerField('Объём (часы)', validators=[DataRequired()])
-    collaborators = StringField('Коллабораторы (через запятую)', validators=[Optional()])
+    work_size = IntegerField('Объем работы в часах', validators=[DataRequired()])
+    collaborators = StringField('Участники (через запятую)')
     is_finished = BooleanField('Завершена')
-    submit = SubmitField('Добавить работу')
+    submit = SubmitField('Добавить')

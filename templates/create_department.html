@@ -1,49 +1,31 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>{{ title }}</title>
+    <title>Создание департамента</title>
 </head>
 <body>
-
-<h1 align="center">{{ title }}</h1>
-<hr>
-
-<fieldset style="padding: 10px; border: 2px solid black;">
-    <legend><b>Создание департамента</b></legend>
-
+    <h1>Создание нового департамента</h1>
     <form method="post">
         {{ form.hidden_tag() }}
-
-        <table cellspacing="6">
-            <tr>
-                <td><b>{{ form.title.label }}</b></td>
-                <td>{{ form.title(size=50) }}</td>
-            </tr>
-
-            <tr>
-                <td><b>{{ form.chief.label }}</b></td>
-                <td>{{ form.chief(size=20) }}</td>
-            </tr>
-
-            <tr>
-                <td><b>{{ form.members.label }}</b></td>
-                <td>{{ form.members(size=50) }}</td>
-            </tr>
-
-            <tr>
-                <td><b>{{ form.email.label }}</b></td>
-                <td>{{ form.email(size=50) }}</td>
-            </tr>
-        </table>
-
-        <br>
-        {{ form.submit() }}
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title(size=50) }}
+        </p>
+        <p>
+            {{ form.chief.label }}<br>
+            {{ form.chief() }}
+        </p>
+        <p>
+            {{ form.members.label }}<br>
+            {{ form.members(size=50) }}
+        </p>
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(size=50) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+        <p><a href="/">Вернуться на главную</a></p>
     </form>
-</fieldset>
-
-<hr>
-<p align="center"><i>Страница создана студентом</i></p>
-
 </body>
 </html>
