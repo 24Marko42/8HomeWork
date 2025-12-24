@@ -215,9 +215,7 @@ def query_department_hours(session):
     for member, hours in qualified_members:
         print(f"{member.surname} {member.name} (ID: {member.id}) - {hours} часов")
 
-# === ОСНОВНАЯ ФУНКЦИЯ ===
 def main():
-    # Словарь задач
     tasks = {
         '1': ('Все колонисты в модуле 1', query_module1_colonists),
         '2': ('ID колонистов в module_1 без "engineer" в профессии/должности', query_non_engineers_module1),

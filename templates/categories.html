@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Категории работ{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-5 fw-bold text-muted">
+            <i class="fas fa-tags me-2"></i>Категории работ
+        </h1>
+        <a href="{{ url_for('create_category') }}" class="btn btn-mars">
+            <i class="fas fa-plus me-1"></i>Добавить категорию
+        </a>
+    </div>
+
+    {% if categories %}
+        <div class="row">
+            {% for cat in categories %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0">{{ cat.name }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{ cat.description }}</p>
+                            <div class="mt-3 d-flex gap-2">
+                                <a href="{{ url_for('edit_category', id=cat.id) }}" class="btn btn-sm btn-edit">
+                                    <i class="fas fa-edit me-1"></i>Изменить
+                                </a>
+                                <form action="{{ url_for('delete_category', id=cat.id) }}" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-delete" data-confirm="Вы уверены, что хотите удалить эту категорию?">
+                                        <i class="fas fa-trash me-1"></i>Удалить
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>Пока нет категорий. Создайте первую категорию!
+        </div>
+    {% endif %}
+{% endblock %}
